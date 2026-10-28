@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#F3EDE2">
+<title>测测你是哪位历史人物</title>
+<meta name="description" content="十二问，翻开史册，看看千年前的哪位人物，与你同频。">
+<meta property="og:title" content="测测你是哪位历史人物">
+<meta property="og:description" content="十二问，翻开史册，看看千年前的哪位人物，与你同频。">
+<link rel="preload" as="image" href="assets/mountains.jpg">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><filter id="rough"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="2.2"/></filter></svg>
+<div class="paper" aria-hidden="true"></div>
+<div class="side-poem left" aria-hidden="true">以铜为镜　可以正衣冠</div>
+<div class="side-poem right" aria-hidden="true">以史为镜　可以知兴替</div>
+
+<main id="app">
+  <!-- 封面 -->
+  <section class="screen cover is-active" id="s-cover" aria-labelledby="cover-title">
+    <div class="cover-top">
+      <span class="eyebrow">千年史册 · 人格占卜</span>
+      <button class="link-btn" id="btn-gallery-cover" type="button">人物图鉴</button>
+    </div>
+    <div class="cover-main">
+      <h1 class="cover-title" id="cover-title"><span>你是哪位</span><span>历史人物</span></h1>
+      <div class="seal seal-lg cover-seal" aria-hidden="true"><i>史</i></div>
+      <p class="cover-sub">十二问，翻开史册<br>看看千年前，谁与你同频</p>
+    </div>
+    <div class="cover-bottom">
+      <ul class="meta" aria-label="测试信息">
+        <li><b>十二</b>问</li><li><b>十六</b>位人物</li><li>约<b>三</b>分钟</li>
+      </ul>
+      <button class="btn btn-primary" id="btn-start" type="button">启 卷</button>
+      <p class="fine">结果仅供娱乐 · 人物解读含文学演绎</p>
+    </div>
+    <div class="mountains" aria-hidden="true"></div>
+  </section>
+
+  <!-- 答题 -->
+  <section class="screen quiz" id="s-quiz" aria-live="polite">
+    <header class="quiz-head">
+      <button class="icon-btn" id="btn-back" type="button" aria-label="上一问">‹</button>
+      <ol class="slips" id="slips" aria-hidden="true"></ol>
+      <span class="count" id="count">1/12</span>
+    </header>
+    <div class="q-mark" id="q-mark" aria-hidden="true">一</div>
+    <div class="quiz-body" id="quiz-body">
+      <div class="q-no" id="q-no">第一问</div>
+      <h2 class="q-text" id="q-text"></h2>
+      <div class="options" id="options" role="group"></div>
+    </div>
+    <p class="hint">可按数字键 1–4 作答</p>
+  </section>
+
+  <!-- 推演 -->
+  <section class="screen loading" id="s-loading" aria-live="polite">
+    <div class="dynasty" id="dynasty">秦</div>
+    <div class="brush"><span></span></div>
+    <p class="loading-text">正在翻阅史册……</p>
+  </section>
+
+  <!-- 结果 -->
+  <section class="screen result" id="s-result">
+    <div class="shared-banner" id="shared-banner" hidden></div>
+    <div class="result-grid">
+      <aside class="identity">
+        <p class="eyebrow" id="r-eyebrow">十二问已毕 · 你是</p>
+        <div class="name-wrap">
+          <h2 class="r-name" id="r-name"></h2>
+          <div class="seal seal-stamp" id="r-seal" aria-hidden="true"><i></i></div>
+        </div>
+        <p class="r-meta" id="r-meta"></p>
+        <p class="r-code" id="r-code"></p>
+        <blockquote class="r-quote" id="r-quote"></blockquote>
+        <div class="id-mountains" aria-hidden="true"></div>
+      </aside>
+
+      <div class="details">
+        <p class="r-tagline" id="r-tagline"></p>
+        <p class="r-desc" id="r-desc"></p>
+
+        <h3 class="sec-title">四维命格</h3>
+        <div class="dims" id="r-dims"></div>
+
+        <div class="duo">
+          <div class="tile"><h3 class="tile-title">天赋</h3><ul id="r-talents"></ul></div>
+          <div class="tile tile-soft"><h3 class="tile-title">软肋</h3><p id="r-weak"></p></div>
+        </div>
+
+        <h3 class="sec-title">若生于今世</h3>
+        <dl class="modern">
+          <div><dt>职业</dt><dd id="r-job"></dd></div>
+          <div><dt>宜居之城</dt><dd id="r-city"></dd></div>
+        </dl>
+
+        <h3 class="sec-title">历史羁绊</h3>
+        <div class="bonds" id="r-bonds"></div>
+
+        <div class="relation" id="r-relation" hidden></div>
+
+        <h3 class="sec-title">人物图鉴 <small id="r-collect"></small></h3>
+        <div class="gallery" id="r-gallery"></div>
+      </div>
+    </div>
+    <div class="actions" id="actions">
+      <button class="btn btn-primary" id="btn-card" type="button">生成分享卡</button>
+      <button class="btn btn-ghost" id="btn-invite" type="button">邀好友来测</button>
+      <button class="btn btn-text" id="btn-retry" type="button">重测</button>
+    </div>
+  </section>
+</main>
+
+<!-- 底部弹层 -->
+<div class="sheet-mask" id="sheet-mask" hidden>
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="sheet-title" id="sheet">
+    <button class="icon-btn sheet-close" id="sheet-close" type="button" aria-label="关闭">×</button>
+    <div id="sheet-body"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<canvas id="card-canvas" width="1080" height="1600" hidden></canvas>
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
